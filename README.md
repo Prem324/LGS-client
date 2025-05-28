@@ -1,70 +1,181 @@
-# Getting Started with Create React App
+# Lead Generation System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern lead generation system with email notifications and n8n workflow automation.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Modern, responsive lead generation form
+- Real-time form validation
+- Secure backend API with rate limiting
+- n8n workflow integration for email notifications
+- Comprehensive error handling and logging
+- Production-ready security measures
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Frontend
+- React 18
+- TailwindCSS for styling
+- React Toastify for notifications
+- Axios for API calls
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Backend
+- Node.js with Express
+- Winston for logging
+- Express Validator for input validation
+- Helmet for security headers
+- Rate limiting for API protection
 
-### `npm test`
+### Automation
+- n8n for workflow automation
+- Email notifications via n8n
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Prerequisites
 
-### `npm run build`
+- Node.js (v14 or higher)
+- npm or yarn
+- n8n instance (local or cloud)
+- Email service (SendGrid, Mailgun, etc.)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Setup Instructions
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 1. Clone the Repository
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+git clone <repository-url>
+cd lead-generation-system
+```
 
-### `npm run eject`
+### 2. Frontend Setup
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+cd client
+npm install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Create a `.env` file in the client directory:
+```
+REACT_APP_API_URL=http://localhost:5000
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 3. Backend Setup
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+cd ../lead-server
+npm install
+```
 
-## Learn More
+Create a `.env` file in the lead-server directory:
+```
+PORT=5000
+NODE_ENV=development
+CLIENT_URL=http://localhost:3000
+N8N_WEBHOOK_URL=your_n8n_webhook_url_here
+N8N_API_KEY=your_n8n_api_key_here
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 4. n8n Setup
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Install n8n locally or use n8n.cloud
+2. Create a new workflow
+3. Add a Webhook node
+4. Configure the webhook URL
+5. Add an Email node (SendGrid, Mailgun, etc.)
+6. Configure email templates
+7. Test the workflow
 
-### Code Splitting
+## Running the Application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Development Mode
 
-### Analyzing the Bundle Size
+1. Start the backend:
+```bash
+cd lead-server
+npm run dev
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+2. Start the frontend:
+```bash
+cd client
+npm start
+```
 
-### Making a Progressive Web App
+The application will be available at:
+- Frontend: http://localhost:3000
+- Backend: http://localhost:5000
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Production Mode
 
-### Advanced Configuration
+1. Build the frontend:
+```bash
+cd client
+npm run build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+2. Start the backend:
+```bash
+cd lead-server
+npm start
+```
 
-### Deployment
+## Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Frontend Deployment (Vercel/Netlify)
 
-### `npm run build` fails to minify
+1. Connect your repository to Vercel/Netlify
+2. Configure build settings:
+   - Build command: `cd client && npm install && npm run build`
+   - Output directory: `client/build`
+3. Add environment variables:
+   - `REACT_APP_API_URL`: Your backend API URL
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Backend Deployment (Heroku/Render)
+
+1. Create a new app on Heroku/Render
+2. Connect your repository
+3. Add environment variables:
+   - `PORT`
+   - `NODE_ENV`
+   - `CLIENT_URL`
+   - `N8N_WEBHOOK_URL`
+   - `N8N_API_KEY`
+
+## Security Considerations
+
+- All API endpoints are protected with rate limiting
+- CORS is configured to only allow requests from the frontend
+- Input validation is implemented on both frontend and backend
+- Security headers are enabled via Helmet
+- Sensitive data is not exposed in error messages
+- API keys and secrets are stored in environment variables
+
+## Extending the System
+
+### Adding New Features
+
+1. Additional Form Fields:
+   - Add fields to the frontend form
+   - Update backend validation
+   - Modify n8n workflow to handle new data
+
+2. CRM Integration:
+   - Add CRM API endpoints to n8n workflow
+   - Configure data mapping
+   - Set up authentication
+
+3. Analytics:
+   - Add tracking code to frontend
+   - Implement backend analytics endpoints
+   - Configure n8n to store analytics data
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
